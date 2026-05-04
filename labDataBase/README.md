@@ -6,23 +6,53 @@ Es una plantilla Android básica sin lógica adicional visible en el código fue
 
 ## MainActivity.java
 
-- Línea 1: declara el paquete com.movil.labdatabase.
-- Línea 3: separa el área de imports.
-- Líneas 4 a 8: importan Bundle, EdgeToEdge, AppCompatActivity, Insets, ViewCompat y WindowInsetsCompat.
-- Línea 10: define la actividad principal.
-- Línea 12: abre onCreate.
-- Línea 13: indica que se sobreescribe el método de la clase padre.
-- Línea 14: prepara la actividad con la inicialización base de Android.
-- Línea 15: activa Edge-to-Edge.
-- Línea 16: carga el layout activity_main.
-- Línea 17: busca la vista principal con id main.
-- Línea 18: registra el listener que ajusta el padding.
-- Línea 19: toma los insets de las barras del sistema.
-- Línea 20: aplica el padding para respetar la zona visible.
-- Línea 21: devuelve los insets sin cambiarlos.
-- Línea 22: cierra el listener.
-- Línea 23: cierra onCreate.
-- Línea 24: cierra la clase.
+### Línea 1
+
+```java
+package com.movil.labdatabase;
+```
+
+Declara el paquete de la clase principal.
+
+### Líneas 3 a 8
+
+```java
+import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+```
+
+Importan las clases para usar Edge-to-Edge y ajustar márgenes según las barras del sistema.
+
+### Línea 10
+
+```java
+public class MainActivity extends AppCompatActivity {
+```
+
+Define la pantalla principal.
+
+### Líneas 13 a 22
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	EdgeToEdge.enable(this);
+	setContentView(R.layout.activity_main);
+	ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+		Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+		v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+		return insets;
+	});
+}
+```
+
+Inicializa la actividad, activa Edge-to-Edge, carga el layout y ajusta el padding de la vista principal.
 
 ## Para el examen
 

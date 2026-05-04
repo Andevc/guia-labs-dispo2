@@ -6,32 +6,89 @@ Es la plantilla de Kotlin equivalente a un proyecto Android básico. Solo carga 
 
 ## MainActivity.kt
 
-- Línea 1: declara el paquete com.example.myapplication.
-- Línea 2: deja una línea vacía antes de los imports.
-- Línea 3: importa android.os.Bundle.
-- Línea 4: importa enableEdgeToEdge para activar contenido a borde completo.
-- Línea 5: importa AppCompatActivity.
-- Línea 6: importa ViewCompat para manipular insets de la vista.
-- Línea 7: importa WindowInsetsCompat para obtener las barras del sistema.
-- Línea 9: define la clase MainActivity en Kotlin.
-- Línea 10: abre onCreate.
-- Línea 11: llama al método base de la actividad.
-- Línea 12: activa Edge-to-Edge.
-- Línea 13: carga activity_main.
-- Línea 14: busca la vista principal con id main.
-- Línea 15: registra el listener para ajustar padding.
-- Línea 16: obtiene el tamaño de las barras del sistema.
-- Línea 17: aplica padding a la vista.
-- Línea 18: devuelve los insets procesados.
-- Línea 19: cierra el bloque del listener.
-- Línea 20: cierra onCreate.
-- Línea 21: cierra la clase.
+### Línea 1
+
+```kotlin
+package com.example.myapplication
+```
+
+Declara el paquete de la actividad en Kotlin.
+
+### Líneas 3 a 7
+
+```kotlin
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+```
+
+Importan las clases necesarias para iniciar la pantalla y aplicar Edge-to-Edge.
+
+### Línea 9
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+```
+
+Define la actividad principal.
+
+### Líneas 10 a 19
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+	super.onCreate(savedInstanceState)
+	enableEdgeToEdge()
+	setContentView(R.layout.activity_main)
+	ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+		val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+		v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+		insets
+	}
+}
+```
+
+Inicia la pantalla, carga el layout y ajusta el padding para que el contenido no quede debajo de las barras del sistema.
 
 ## activity_main.xml
 
-- Líneas 1 a 7: crean el ConstraintLayout principal.
-- Líneas 9 a 16: muestran el texto Prueba Nro 1 centrado.
-- Líneas 18 a 21: agregan una vista auxiliar sin funcionalidad relevante.
+### Línea 1
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+```
+
+Declara el archivo XML.
+
+### Líneas 2 a 7
+
+```xml
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/main"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".MainActivity">
+```
+
+Crean el contenedor principal.
+
+### Líneas 9 a 16
+
+```xml
+<TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Prueba Nro 1"
+	app:layout_constraintBottom_toBottomOf="parent"
+	app:layout_constraintEnd_toEndOf="parent"
+	app:layout_constraintStart_toStartOf="parent"
+	app:layout_constraintTop_toTopOf="parent" />
+```
+
+Muestran un texto centrado.
 
 ## Para el examen
 
